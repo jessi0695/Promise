@@ -2,30 +2,65 @@ let producto = [{"id":1,"title":"Fjallraven - Foldsack No. 1 Backpack, Fits 15 L
 
 //producto = null;
 
-function getProducto(){
-    return new Promise((resolve, reject) => {
-        if (producto==null){
-            reject(new Error ("Producto no existe"));
-        }//if ==null
+// function getProducto(){
+//     return new Promise((resolve, reject) => {
+//         if (producto==null){
+//             reject(new Error ("Producto no existe"));
+//         }//if ==null
 
-        setTimeout( ()=> {
-            resolve(producto);
-    }       ,3000);
+//         setTimeout( ()=> {
+//             resolve(producto);
+//     }       ,3000);
 
-    });//new promise
+//     });//new promise
 
-}//getProducto
+// }//getProducto
 
-getProducto()
-        .then((prod)=> console.log(prod)) //Cuando se resuelve (resolve)
-        .catch((err)=> console.log(err.message)); //Cuando hay un reject (reject)
+function getProducto(){//con fetch
+    let promesa = fetch("https://fakestoreapi.com/products", {
+        method: "GET"
+    });
+
+    promesa.then( (response) => {
+        response.json().then( (prods) => {
+                //createCards (prods);
+                console.log("prods=>json()");
+                console.log(prods);
+            }//prods
+        )//then json
+        .catch((err) => {
+            console.error("Error en el formato de la respuesta" + err.message);
+        }); //catch json
+    }//response
+    )//then
+    .catch((error) => {
+        console.error("Error en  la respuesta" + error.message);
+    });// catch promesa
+}
+
+getProducto();
+        // .then((prod)=> console.log(prod)) //Cuando se resuelve (resolve)
+        // .catch((err)=> console.log(err.message)); //Cuando hay un reject (reject)
 
 //Ejercicio
 
-// let listaProductos = document.getElementById("listaProductos");
-
-//         producto.forEach(r => {
-//             let row = ``
-//                listaProductos[0].insertAdjacentHTML("beforeend", row);    
-            
-//         });
+let listaProds = document.getElementById("listaProds");
+        function createCards(prods);{
+            prods.forEach(prod => {
+                listaProds.insertAdjacentHTML("beforeend",
+                `<div class="card col" style="width:18rem;">
+                <img src="${prod.image}" class="card-img-top" alt="${prod.description}" style="width:15rem">
+                <div class="card-body">
+                <h5 class="card-title">${prod.title}</h5>
+                <p class="card-text"><strong>${prod.category}</strong></p>
+                <p class="card-text">${prod.description.slice(0,80)}</p>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#exampleModal"_${prod.id}">
+                Mas Info
+                </button>
+            </div>
+        </div> <!--card-->
+                `
+                )
+        }
+}
