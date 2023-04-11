@@ -23,7 +23,7 @@ function getProducto(){//con fetch
 
     promesa.then( (response) => {
         response.json().then( (prods) => {
-                //createCards (prods);
+                createCards (prods);
                 console.log("prods=>json()");
                 console.log(prods);
             }//prods
@@ -55,7 +55,7 @@ let listaProds = document.getElementById("listaProds");
                 <p class="card-text"><strong>${prod.category}</strong></p>
                 <p class="card-text">${prod.description.slice(0,20)}</p>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                data-bs-target="#exampleModal"_${prod.id}">
+                data-bs-target="#exampleModal_${prod.id}">
                 Mas Info
                 </button>
             </div>
@@ -65,7 +65,7 @@ let listaProds = document.getElementById("listaProds");
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                     <h1 class="modal-title fs-5" id="exampleModalLabel" ${prod.title}></h1>
+                     <h1 class="modal-title fs-5" id="exampleModalLabel"> ${prod.title}></h1>
                      <button type="button" class="btn-close" 
                         data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -75,13 +75,11 @@ let listaProds = document.getElementById("listaProds");
          </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>
 </div>
-                `
-                )
-        }
-)}
+                `);
+        });
+};
